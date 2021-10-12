@@ -1,0 +1,5 @@
+□laravelのデバック機能を付け加える方法
+コマンド：composer require barryvdh/laravel-debugbar
+
+□ローカルで立ち上げているものを、コードを変えたことによる結果を反映させる
+コマンド：php artisan config:clear

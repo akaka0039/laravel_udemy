@@ -20,5 +20,8 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+//middlewareでログインしてきたユーザが以前登録していたか確認
+
+
 
 require __DIR__.'/auth.php';

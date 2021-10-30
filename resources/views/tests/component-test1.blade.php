@@ -9,6 +9,9 @@
     {{-- 20211029_変数受け渡し_ 変数として受け取る場合にはこの書き方_[ :variable="$---"--}}
     <x-tests.card title="title1" content="content1" :message="$message" />
 
-    
-    <x-tests.card title="title" />
+    {{-- 20211029_初期値＿受け取った変数に値がなくともエラーで落ちないようにする --}}
+    <x-tests.card title="title2" />
+
+    {{-- 20211029_属性のバック --}}
+    <x-tests.card title="CSSを変更したい" class="bg-red-300" />
 </x-tests.app>

@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 //20211024_add
 use App\Http\Controllers\ComponentTestController;
 
+//20211031_add
+use App\Http\Controllers\LifeCycleTestController;
+
 
 
 
@@ -27,6 +30,14 @@ Route::get('/', function () {
 //20211024_add
 Route::get('/component-test1', [ComponentTestController::class, 'showComponent1']);
 Route::get('/component-test2', [ComponentTestController::class, 'showComponent2']);
+
+//20211031_add for content
+Route::get('/service-container-test', [LifeCycleTestController::class, 'showServiceContainerTest']);
+
+//20211101_ServiceProvider
+Route::get('/service-provider-test', [LifeCycleTestController::class, 'showServiceProviderTest']);
+
+
 
 
 Route::get('/dashboard', function () {

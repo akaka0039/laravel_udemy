@@ -1,5 +1,8 @@
 <?php
 
+
+//20220104_ルーティングを変更するため
+
 namespace App\Providers;
 
 use Illuminate\Cache\RateLimiting\Limit;
@@ -19,6 +22,10 @@ class RouteServiceProvider extends ServiceProvider
      */
     public const HOME = '/dashboard';
 
+    //20220104 const == 定数
+    public const OWNER_HOME = '/owner/dashboard';
+    public const ADMIN_HOME = '/owner/dashboard';
+
     /**
      * Define your route model bindings, pattern filters, etc.
      *
@@ -29,8 +36,26 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-            Route::middleware('web')
+
+            //20220104_add_for USER
+            Route::prefix('/')
+                ->as('user.')
+                ->middleware('web')
+                ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
+
+            Route::prefix('owner')
+                ->as('owner.')
+                ->middleware('web')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/owner.php'));
+
+            Route::prefix('admin')
+                ->as('admin.')
+                ->middleware('web')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/admin.php'));
+
 
             Route::prefix('api')
                 ->middleware('api')

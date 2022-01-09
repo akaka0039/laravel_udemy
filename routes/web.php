@@ -42,9 +42,9 @@ Route::get('/service-provider-test', [LifeCycleTestController::class, 'showServi
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+})->middleware(['auth:users'])->name('dashboard');
 //middlewareでログインしてきたユーザが以前登録していたか確認
 
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -23,25 +23,25 @@ use App\Http\Controllers\LifeCycleTestController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('user.welcome');
 });
 
 
-//20211024_add
-Route::get('/component-test1', [ComponentTestController::class, 'showComponent1']);
-Route::get('/component-test2', [ComponentTestController::class, 'showComponent2']);
+// //20211024_add
+// Route::get('/component-test1', [ComponentTestController::class, 'showComponent1']);
+// Route::get('/component-test2', [ComponentTestController::class, 'showComponent2']);
 
-//20211031_add for content
-Route::get('/service-container-test', [LifeCycleTestController::class, 'showServiceContainerTest']);
+// //20211031_add for content
+// Route::get('/service-container-test', [LifeCycleTestController::class, 'showServiceContainerTest']);
 
-//20211101_ServiceProvider
-Route::get('/service-provider-test', [LifeCycleTestController::class, 'showServiceProviderTest']);
+// //20211101_ServiceProvider
+// Route::get('/service-provider-test', [LifeCycleTestController::class, 'showServiceProviderTest']);
 
 
 
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('user.dashboard');
 })->middleware(['auth:users'])->name('dashboard');
 //middlewareでログインしてきたユーザが以前登録していたか確認
 

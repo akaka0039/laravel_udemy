@@ -24,7 +24,7 @@ class RouteServiceProvider extends ServiceProvider
 
     //20220104 const == 定数
     public const OWNER_HOME = '/owner/dashboard';
-    public const ADMIN_HOME = '/owner/dashboard';
+    public const ADMIN_HOME = '/admin/dashboard';
 
     /**
      * Define your route model bindings, pattern filters, etc.

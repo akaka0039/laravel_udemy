@@ -22,11 +22,11 @@ use App\Http\Controllers\Owner\Auth\VerifyEmailController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('owner.welcome');
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('admin.dashboard');
 })->middleware(['auth:owners'])->name('dashboard');
 //middlewareでログインしてきたユーザが以前登録していたか確認
 

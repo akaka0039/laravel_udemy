@@ -27,7 +27,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('admin.dashboard');
-})->middleware(['auth:admin'])->name('admin.dashboard');
+})->middleware(['auth:admin'])->name('dashboard');
 //middlewareでログインしてきたユーザが以前登録していたか確認
 
 Route::get('/register', [RegisteredUserController::class, 'create'])

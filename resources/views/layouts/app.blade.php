@@ -22,9 +22,9 @@
             {{-- 202201014_add --}}
             @if(auth('admin')->user())
                 @include('layouts.admin-navigation')
-            @elseif(auth('owner')->user())
+            @elseif(auth('owners')->user())
                 @include('layouts.owner-navigation')
-            @elseif(auth('user')->user())
+            @elseif(auth('users')->user())
                 @include('layouts.user-navigation')
             @endif
 

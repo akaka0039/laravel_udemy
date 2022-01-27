@@ -10,6 +10,7 @@ use App\Http\Controllers\Owner\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Owner\Auth\RegisteredUserController;
 use App\Http\Controllers\Owner\Auth\VerifyEmailController;
 use App\Http\Controllers\Owner\ShopController;
+// 20220127
 use App\Http\Controllers\Owner\ImageController;
 
 /*
@@ -48,6 +49,7 @@ Route::prefix('shops')->middleware(['auth:owners'])->group(function () {
     ])->name('shops.update');
 });
 
+// 20220127
 Route::resource('images', ImageController::class)
     ->middleware('auth:owners')->except(['show']);
 

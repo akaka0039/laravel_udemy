@@ -12,6 +12,9 @@ use App\Http\Controllers\Owner\Auth\VerifyEmailController;
 use App\Http\Controllers\Owner\ShopController;
 // 20220127
 use App\Http\Controllers\Owner\ImageController;
+// 20220129
+use App\Http\Controllers\Owner\ProductController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -49,8 +52,12 @@ Route::prefix('shops')->middleware(['auth:owners'])->group(function () {
     ])->name('shops.update');
 });
 
-// 20220127
+// 20220127_image
 Route::resource('images', ImageController::class)
+    ->middleware('auth:owners')->except(['show']);
+
+// 20220129_product
+Route::resource('products', ProductController::class)
     ->middleware('auth:owners')->except(['show']);
 
 

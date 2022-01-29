@@ -39,7 +39,7 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-        // 先にsecondaryを削除しない場合、外部制約キーが発生してしまう（エラーになる）
+        // 先にsecondaryを削除しない場合、外部キー制約が発生してしまう（エラーになる）
         Schema::dropIfExists('secondary_categories');
         Schema::dropIfExists('primary_categories');
     }

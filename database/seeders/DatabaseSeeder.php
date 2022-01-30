@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             OwnerSeeder::class,
             ShopSeeder::class,
             ImageSeeder::class,
+            // 20220129_add
+            CategorySeeder::class
         ]);
     }
 }

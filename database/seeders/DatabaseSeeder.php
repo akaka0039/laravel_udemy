@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Product;
+use App\Models\Stock;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,7 +24,9 @@ class DatabaseSeeder extends Seeder
             ImageSeeder::class,
             // 20220129_add
             CategorySeeder::class,
-            ProductSeeder::class
+            ProductSeeder::class,
+            StockSeeder::class
+
         ]);
     }
 }

@@ -13,10 +13,78 @@
                     <form method="post" action="{{ route('owner.products.store') }}">
                         @csrf
                         <div class="-m-2">
+
+                            {{-- 商品名 --}}
+                            <div class="p-2 w-1/2 mx-auto">
+                                <div class="relative">
+                                    <label for="name" class="leading-7 text-sm text-gray-600">商品名　※必須</label>
+                                    <input type="text" id="name" name="name" value="{{ old('name') }}" required
+                                        class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                </div>
+                            </div>
+                            {{-- 店舗情報 --}}
+                            <div class="p-2 w-1/2 mx-auto">
+                                <div class="relative">
+                                    <label for="information" class="leading-7 text-sm text-gray-600">商品情報
+                                    </label>
+                                    <textarea id="information" name="information" rows="10" required
+                                        class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ old('information') }}</textarea>
+                                </div>
+                            </div>
+
+                            {{-- 値段 --}}
+                            <div class="p-2 w-1/2 mx-auto">
+                                <div class="relative">
+                                    <label for="price" class="leading-7 text-sm text-gray-600">価格　※必須</label>
+                                    <input type="number" id="price" name="price" value="{{ old('price') }}" required
+                                        class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                </div>
+                            </div>
+
+                            {{-- 表示順 --}}
+                            <div class="p-2 w-1/2 mx-auto">
+                                <div class="relative">
+                                    <label for="sort_order" class="leading-7 text-sm text-gray-600">表示順</label>
+                                    <input type="number" id="sort_order" name="sort_order"
+                                        value="{{ old('sort_order') }}"
+                                        class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                </div>
+                            </div>
+
+                            {{-- 在庫 --}}
+                            <div class="p-2 w-1/2 mx-auto">
+                                <div class="relative">
+                                    <label for="quantity" class="leading-7 text-sm text-gray-600">初期在庫　※必須</label>
+                                    <input type="quantity" id="quantity" name="quantity"
+                                        value="{{ old('squantity') }}" required
+                                        class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                </div>
+                            </div>
+
+                            {{-- 店舗ID --}}
+                            <div class="p-2 w-1/2 mx-auto">
+                                <div class="relative">
+                                    <label for="shop_id" id="shop_id"
+                                        class="leading-7 text-sm text-gray-600">販売する店舗　</label>
+
+                                    <select name="shop_id"
+                                        class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        @foreach ($shops as $shop)
+                                            <option value="{{ $shop->id }}">
+                                                {{ $shop->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
                             {{-- 店舗名 --}}
                             <div class="p-2 w-1/2 mx-auto">
                                 <div class="relative">
-                                    <select name="category">
+                                    <label for="category" id="shop_id"
+                                        class="leading-7 text-sm text-gray-600">カテゴリー</label>
+                                    <select name="category" id="category"
+                                        class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                         @foreach ($categories as $category)
                                             {{-- optgroup_カテゴリーを表示するため --}}
                                             <optgroup label="{{ $category->name }}">
@@ -27,8 +95,6 @@
                                                 @endforeach
                                         @endforeach
                                     </select>
-
-
                                 </div>
                             </div>
 
@@ -36,6 +102,17 @@
                             <x-select-image :images="$images" name="image2" />
                             <x-select-image :images="$images" name="image3" />
                             <x-select-image :images="$images" name="image4" />
+                            <x-select-image :images="$images" name="image5" />
+
+                            {{-- ラジオボタン_now on sell or not --}}
+                            <div class="p-2 w-1/2 mx-auto">
+                                <div class="relative flex justify-around">
+                                    <div><input type="radio" name="is_selling" value="1" class="mr-2"
+                                            checked>販売中</div>
+                                    <div><input type="radio" name="is_selling" value="0" class="mr-2">停止中
+                                    </div>
+                                </div>
+                            </div>
 
                             {{-- ボタン　update or back --}}
                             <div class="p-2 w-full flex justify-around mt-4">

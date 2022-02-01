@@ -32,6 +32,10 @@
                                 </div>
                             </div>
 
+                            <x-select-image :images="$images" name="image1" />
+                            <x-select-image :images="$images" name="image2" />
+                            <x-select-image :images="$images" name="image3" />
+                            <x-select-image :images="$images" name="image4" />
 
                             {{-- ボタン　update or back --}}
                             <div class="p-2 w-full flex justify-around mt-4">
@@ -46,4 +50,29 @@
             </div>
         </div>
     </div>
+
+
+    <script>
+        'use strict' // 曖昧なコードをエラーにする
+        const images = document.querySelectorAll('.image') //全ての「.image」を取得することができる
+
+        // 取得した画像を一つずつ回していく
+        images.forEach(image => {
+            image.addEventListener('click', function(e) { // クリックした時
+                const imageName = e.target.dataset.id.substr(0, 6)
+                const imageId = e.target.dataset.id.replace(imageName + '_', '')
+                const imageFile = e.target.dataset.file
+                const imagePath = e.target.dataset.path
+                const modal = e.target.dataset.modal
+
+
+                // サムネイルと input type = hiddenのvalueに設定
+                document.getElementById(imageName + '_thumbnail').src = imagePath + '/' + imageFile
+                document.getElementById(imageName + '_hidden').value = imageId
+                MicroModal.close(modal);
+            })
+
+        })
+    </script>
+
 </x-app-layout>

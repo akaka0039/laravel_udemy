@@ -59,6 +59,7 @@
                                         value="{{ old('squantity') }}" required
                                         class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                 </div>
+                                <span>0~99の範囲で入力してください</span>
                             </div>
 
                             {{-- 店舗ID --}}

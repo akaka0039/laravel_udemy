@@ -14,6 +14,10 @@ if ($name === 'image4') {
 if ($name === 'image5') {
     $modal = 'modal-5';
 }
+
+$cImage = $currentImage ?? '';
+$cId = $currentId ?? '';
+
 @endphp
 
 
@@ -53,7 +57,7 @@ if ($name === 'image5') {
 <div class="flex justify-around items-center mb-4">
     <a class="py-2 px-4 bg-gray-200" data-micromodal-trigger="{{ $modal }}" href='javascript:;'>Select File</a>
     <div class="w-1/4">
-        <img id="{{ $name }}_thumbnail" src="">
+        <img id="{{ $name }}_thumbnail" @if ($cImage) src="{{ asset('storage/products/' . $cImage) }}" @else src="" @endif>
     </div>
 </div>
-<input id="{{ $name }}_hidden" type="hidden" name="{{ $name }}" value="">
+<input id="{{ $name }}_hidden" type="hidden" name="{{ $name }}" value="{{ $cId }}">

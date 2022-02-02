@@ -209,10 +209,11 @@ class ProductController extends Controller
                     $product->save();
 
                     // 20220202
-                    if ($request->type === '1') {
+                    //  \Constant::PRODUCT_LIST['add']_useで読み込まない場合の書き方
+                    if ($request->type === \Constant::PRODUCT_LIST['add']) {
                         $newQuantity = $request->quantity;
                     }
-                    if ($request->type === '2') {
+                    if ($request->type === \Constant::PRODUCT_LIST['reduce']) {
                         $newQuantity = $request->quantity * -1;
                     }
 

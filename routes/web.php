@@ -8,6 +8,7 @@ use App\Http\Controllers\ComponentTestController;
 //20211031_add
 use App\Http\Controllers\LifeCycleTestController;
 
+use App\Http\Controllers\User\ItemController;
 
 
 
@@ -26,6 +27,13 @@ Route::get('/', function () {
     return view('user.welcome');
 });
 
+Route::middleware(['auth:users'])->group(function () {
+    // index
+    Route::get('/', [
+        ItemController::class,
+        'index'
+    ])->name('items.index');
+});
 
 // //20211024_add
 // Route::get('/component-test1', [ComponentTestController::class, 'showComponent1']);
@@ -40,10 +48,10 @@ Route::get('/', function () {
 
 
 
-Route::get('/dashboard', function () {
-    return view('user.dashboard');
-})->middleware(['auth:users'])->name('dashboard');
-//middlewareでログインしてきたユーザが以前登録していたか確認
+// Route::get('/dashboard', function () {
+//     return view('user.dashboard');
+// })->middleware(['auth:users'])->name('dashboard');
+// //middlewareでログインしてきたユーザが以前登録していたか確認
 
 
 

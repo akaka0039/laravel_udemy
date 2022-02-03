@@ -27,9 +27,9 @@ use App\Http\Controllers\Owner\ProductController;
 |
 */
 
-Route::get('/', function () {
-    return view('owner.welcome');
-});
+// Route::get('/', function () {
+//     return view('owner.welcome');
+// });
 
 // 20220124_add
 Route::prefix('shops')->middleware(['auth:owners'])->group(function () {
@@ -66,9 +66,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth:owners'])->name('dashboard');
 //middlewareでログインしてきたユーザが以前登録していたか確認
 
-Route::get('/register', [RegisteredUserController::class, 'create'])
-    ->middleware('guest')
-    ->name('register');
+// Route::get('/register', [RegisteredUserController::class, 'create'])
+//     ->middleware('guest')
+//     ->name('register');
 
 Route::post('/register', [RegisteredUserController::class, 'store'])
     ->middleware('guest');

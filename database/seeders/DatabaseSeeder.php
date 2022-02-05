@@ -29,5 +29,9 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class
 
         ]);
+
+        // 20220204
+        Product::factory(100)->create();
+        Stock::factory(100)->create();
     }
 }

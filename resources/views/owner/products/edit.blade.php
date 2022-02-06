@@ -155,6 +155,15 @@
                             </div>
                         </div>
                     </form>
+                    <form id="delete_{{ $product->id }}" method="post"
+                        action="{{ route('owner.products.destroy', ['product' => $product->id]) }}">
+                        @csrf
+                        @method('delete')
+                        <div class="p-2 w-full flex justify-around mt-32">
+                            <a href="#" data-id="{{ $product->id }}" onclick="deletePost(this)"
+                                class=" text-white bg-red-400 border-0 py-2 px-5 focus:outline-none hover:bg-red-600 rounded">Delete</a>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -162,6 +171,7 @@
 
 
     <script>
+        // 画像選択
         'use strict' // 曖昧なコードをエラーにする
         const images = document.querySelectorAll('.image') //全ての「.image」を取得することができる
 
@@ -182,6 +192,14 @@
             })
 
         })
+
+
+        function deletePost(e) {
+            'use strict';
+            if (confirm('本当に削除してもよろしいですか？')) {
+                document.getElementById('delete_' + e.dataset.id).submit();
+            }
+        }
     </script>
 
 </x-app-layout>

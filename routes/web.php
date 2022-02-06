@@ -33,7 +33,14 @@ Route::middleware(['auth:users'])->group(function () {
         ItemController::class,
         'index'
     ])->name('items.index');
+    Route::get(
+        'show/{item}',
+        [ItemController::class, 'show']
+    )->name('items.show');
 });
+
+
+
 
 // //20211024_add
 // Route::get('/component-test1', [ComponentTestController::class, 'showComponent1']);

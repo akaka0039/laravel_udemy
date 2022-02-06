@@ -11,6 +11,13 @@ use Illuminate\Support\Facades\DB;
 
 class ItemController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:users');
+    }
+
+
     public function index()
     {
         // クエリビルダ（phpの書き方でDBデータ取得）
@@ -64,5 +71,13 @@ class ItemController extends Controller
             'user.index',
             compact('products')
         );
+    }
+
+    public function show($id)
+    {
+
+        $product = Product::findOrFail($id);
+
+        return view('user.show', compact('product'));
     }
 }

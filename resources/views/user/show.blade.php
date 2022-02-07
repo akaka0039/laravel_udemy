@@ -21,9 +21,7 @@
                             <h1 class="mb-4 text-gray-900 text-3xl title-font font-medium">{{ $product->name }}
                             </h1>
                             <p class="leading-relaxed">{{ $product->information }}</p>
-
                             <div class="flex justify-around items-center">
-
                                 <div>
                                     <span
                                         class="title-font font-medium text-2xl text-gray-900">{{ number_format($product->price) }}</span>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Cart;
 use App\Models\User;
+use App\Models\Stock;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -69,18 +70,38 @@ class CartController extends Controller
 
         $lineItems = [];
         foreach ($products as $product) {
-            // stripeに商品情報を渡す
-            $lineItem = [
-                'name' => $product->name,
-                'description' => $product->information,
-                'amount' => $product->price,
-                'currency' => 'jpy',
-                'quantity' => $product->pivot->quantity,
-            ];
-            array_push($lineItems, $lineItem);
+
+            // 決済の際に在庫が足らなくなってしまったら困るので
+            $quantity = '';
+            $quantity = Stock::where('product_id', $product->id)->sum('quantity');
+
+            if ($product->pivot->quantity > $quantity) {
+                // カート内の商品が多かった場合
+                return redirect()->route('user.cart.index');
+            } else {
+                // stripeに商品情報を渡す
+                $lineItem = [
+                    'name' => $product->name,
+                    'description' => $product->information,
+                    'amount' => $product->price,
+                    'currency' => 'jpy',
+                    'quantity' => $product->pivot->quantity,
+                ];
+                array_push($lineItems, $lineItem);
+            }
         }
 
+
+        foreach ($products as $product) {
+            Stock::create([
+                'product_id' => $product->id,
+                'quantity' => $product->pivot->quantity * -1,
+                'type' => \Constant::PRODUCT_LIST['reduce']
+            ]);
+        }
         // dd($lineItems);
+
+        dd('test');
 
         // セッションを作成
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));

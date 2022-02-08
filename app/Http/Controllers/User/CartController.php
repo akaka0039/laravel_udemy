@@ -50,4 +50,14 @@ class CartController extends Controller
 
         return redirect()->route('user.cart.index');
     }
+
+    // 20220208
+    public function delete($id)
+    {
+        Cart::where('product_id', $id)
+            ->where('user_id', Auth::id())
+            ->delete();
+
+        return redirect()->route('user.cart.index');
+    }
 }

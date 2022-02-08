@@ -53,6 +53,11 @@ Route::prefix('cart')->middleware(['auth:users'])->group(function () {
         CartController::class,
         'index'
     ])->name('cart.index');
+
+    Route::post('delete/{item}', [
+        CartController::class,
+        'delete'
+    ])->name('cart.delete');
 });
 
 

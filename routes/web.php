@@ -58,6 +58,11 @@ Route::prefix('cart')->middleware(['auth:users'])->group(function () {
         CartController::class,
         'delete'
     ])->name('cart.delete');
+
+    Route::get('checkout', [
+        CartController::class,
+        'checkout'
+    ])->name('cart.checkout');
 });
 
 

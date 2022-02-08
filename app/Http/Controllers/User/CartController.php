@@ -60,4 +60,44 @@ class CartController extends Controller
 
         return redirect()->route('user.cart.index');
     }
+
+    //支払い
+    public function checkout()
+    {
+        $user = User::findOrFail(Auth::id());
+        $products = $user->products;
+
+        $lineItems = [];
+        foreach ($products as $product) {
+            // stripeに商品情報を渡す
+            $lineItem = [
+                'name' => $product->name,
+                'description' => $product->information,
+                'amount' => $product->price,
+                'currency' => 'jpy',
+                'quantity' => $product->pivot->quantity,
+            ];
+            array_push($lineItems, $lineItem);
+        }
+
+        // dd($lineItems);
+
+        // セッションを作成
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+        $session = \Stripe\Checkout\Session::create([
+
+            'payment_method_types' => ['card'],
+            'line_items' => [$lineItems],
+            'mode' => 'payment',
+            'success_url' => route('user.items.index'),
+            'cancel_url' => route('cart.cart.index'),
+        ]);
+
+        $publicKey = env('STRIPE_PUBLIC_KEY');
+
+        return view(
+            'user.checkout',
+            compact('session', 'publicKey')
+        );
+    }
 }

@@ -63,6 +63,11 @@ Route::prefix('cart')->middleware(['auth:users'])->group(function () {
         CartController::class,
         'checkout'
     ])->name('cart.checkout');
+
+    Route::get('success', [
+        CartController::class,
+        'success'
+    ])->name('cart.success');
 });
 
 

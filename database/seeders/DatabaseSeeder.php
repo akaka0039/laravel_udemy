@@ -26,7 +26,12 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             // ProductSeeder::class,
             // StockSeeder::class
+            UserSeeder::class
 
         ]);
+
+        // 20220204
+        Product::factory(100)->create();
+        Stock::factory(100)->create();
     }
 }

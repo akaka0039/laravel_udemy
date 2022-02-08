@@ -101,7 +101,7 @@ class CartController extends Controller
         }
         // dd($lineItems);
 
-        dd('test');
+        // dd('test');
 
         // セッションを作成
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
@@ -111,7 +111,7 @@ class CartController extends Controller
             'line_items' => [$lineItems],
             'mode' => 'payment',
             'success_url' => route('user.items.index'),
-            'cancel_url' => route('cart.cart.index'),
+            'cancel_url' => route('user.cart.index'),
         ]);
 
         $publicKey = env('STRIPE_PUBLIC_KEY');

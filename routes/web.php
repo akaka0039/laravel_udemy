@@ -68,6 +68,11 @@ Route::prefix('cart')->middleware(['auth:users'])->group(function () {
         CartController::class,
         'success'
     ])->name('cart.success');
+
+    Route::get('cancel', [
+        CartController::class,
+        'cancel'
+    ])->name('cart.cancel');
 });
 
 

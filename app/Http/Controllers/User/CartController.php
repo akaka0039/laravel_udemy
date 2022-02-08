@@ -112,7 +112,7 @@ class CartController extends Controller
             'mode' => 'payment',
             // successメソッドに走る
             'success_url' => route('user.cart.success'),
-            'cancel_url' => route('user.cart.index'),
+            'cancel_url' => route('user.cart.cancel'),
         ]);
 
         $publicKey = env('STRIPE_PUBLIC_KEY');
@@ -123,11 +123,26 @@ class CartController extends Controller
         );
     }
 
+    // 決算が成功した場合
     public function success()
     {
-
         Cart::where('user_id', Auth::id())->delete();
-
         return redirect()->route('user.items.index');
+    }
+
+    // 決算が失敗した場合の処理
+    public function cancel()
+    {
+        $user = User::findOrFail(Auth::id());
+
+        foreach ($user->products as $product) {
+            Stock::create([
+                'product_id' => $product->id,
+                'quantity' => $product->pivot->quantity,
+                'type' => \Constant::PRODUCT_LIST['add']
+            ]);
+        }
+
+        return redirect()->route('user.cart.cancel');
     }
 }

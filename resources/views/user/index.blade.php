@@ -13,7 +13,7 @@
                         {{-- @foreach ($ownerInfo as $owner) --}}
                         @foreach ($products as $product)
                             <div class="w-1/4 p-2 md:p-4">
-                                <a href="">
+                                <a href="{{ route('user.items.show', ['item' => $product->id]) }}">
                                     <div class="border rounded-md p-2 md:p-4">
                                         {{-- 20220202_画像がnullの場合があるため --}}
                                         <x-thumbnail filename="{{ $product->filename ?? '' }}" type="products" />

@@ -18,14 +18,12 @@ class ItemController extends Controller
     public function __construct()
     {
         $this->middleware('auth:users');
-
         $this->middleware(function ($request, $next) {
 
             $id = $request->route()->parameter('item'); //文字列
 
             if (!is_null($id)) {
                 $itemId = Product::availableItems()->where('product_id', $id)->exists();
-
                 if (!$itemId) {
                     abort(404);
                 }
@@ -35,15 +33,14 @@ class ItemController extends Controller
     }
 
 
-    public function index()
+    public function index(Request $request)
     {
         // クエリビルダ（phpの書き方でDBデータ取得）
         // 戻り値はコレクション
-
         // Eloquent（エロクアント）（laravelのORM（オブジェクト関係マッピング））
         // Eloquentモデルオブジェクト
 
-        $products = Product::availableItems()->get();
+        $products = Product::availableItems()->sortOrder($request->sort)->get();
 
         //dd($stocks, $products);
         //$products = Product::all();

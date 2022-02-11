@@ -72,7 +72,7 @@ class Product extends Model
             ->withPivot(['id', 'quantity']);
     }
 
-    // 20220209
+    // 20220209_ローカルスコープ
     public function scopeAvailableItems($query)
     {
         $stocks = DB::table('t_stocks')
@@ -106,5 +106,24 @@ class Product extends Model
                 'secondary_categories.name as category',
                 'image1.filename as filename'
             );
+    }
+
+    public function scopeSortOrder($query, $sortOrder)
+    {
+        if ($sortOrder === null || $sortOrder === \Constant::SORT_ORDER['recommend']) {
+            return $query->orderBy('sort_order', 'asc');
+        }
+        if ($sortOrder === \Constant::SORT_ORDER['higherPrice']) {
+            return $query->orderBy('price', 'desc');
+        }
+        if ($sortOrder === \Constant::SORT_ORDER['lowerPrice']) {
+            return $query->orderBy('price', 'asc');
+        }
+        if ($sortOrder === \Constant::SORT_ORDER['later']) {
+            return $query->orderBy('products.created_at', 'desc');
+        }
+        if ($sortOrder === \Constant::SORT_ORDER['older']) {
+            return $query->orderBy('products.created_at', 'asc');
+        }
     }
 }

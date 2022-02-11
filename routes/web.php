@@ -9,6 +9,7 @@ use App\Http\Controllers\ComponentTestController;
 use App\Http\Controllers\LifeCycleTestController;
 
 use App\Http\Controllers\User\ItemController;
+use App\Http\Controllers\User\CartController;
 
 
 
@@ -39,6 +40,25 @@ Route::middleware(['auth:users'])->group(function () {
     )->name('items.show');
 });
 
+// 
+
+Route::prefix('cart')->middleware(['auth:users'])->group(function () {
+    // add
+    Route::post('add', [
+        CartController::class,
+        'add'
+    ])->name('cart.add');
+
+    Route::get('/', [
+        CartController::class,
+        'index'
+    ])->name('cart.index');
+
+    Route::post('delete/{item}', [
+        CartController::class,
+        'delete'
+    ])->name('cart.delete');
+});
 
 
 

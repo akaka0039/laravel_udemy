@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Stock;
+use App\Models\PrimaryCategory;
 
 use Illuminate\Support\Facades\DB;
 
@@ -40,14 +41,22 @@ class ItemController extends Controller
         // Eloquent（エロクアント）（laravelのORM（オブジェクト関係マッピング））
         // Eloquentモデルオブジェクト
 
-        $products = Product::availableItems()->sortOrder($request->sort)->paginate($request->pagination ?? '20');
+        // dd($request);
+
+        $categories = PrimaryCategory::with('secondary')
+            ->get();
+
+        $products = Product::availableItems()
+            ->selectCategory($request->category ?? '0')
+            ->sortOrder($request->sort)
+            ->paginate($request->pagination ?? '20');
 
         //dd($stocks, $products);
         //$products = Product::all();
 
         return view(
             'user.index',
-            compact('products')
+            compact('products', 'categories')
         );
     }
 

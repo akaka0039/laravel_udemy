@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Cart;
 use App\Models\User;
+use App\Models\Stock;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -59,5 +60,89 @@ class CartController extends Controller
             ->delete();
 
         return redirect()->route('user.cart.index');
+    }
+
+    //支払い
+    public function checkout()
+    {
+        $user = User::findOrFail(Auth::id());
+        $products = $user->products;
+
+        $lineItems = [];
+        foreach ($products as $product) {
+
+            // 決済の際に在庫が足らなくなってしまったら困るので
+            $quantity = '';
+            $quantity = Stock::where('product_id', $product->id)->sum('quantity');
+
+            if ($product->pivot->quantity > $quantity) {
+                // カート内の商品が多かった場合
+                return redirect()->route('user.cart.index');
+            } else {
+                // stripeに商品情報を渡す
+                $lineItem = [
+                    'name' => $product->name,
+                    'description' => $product->information,
+                    'amount' => $product->price,
+                    'currency' => 'jpy',
+                    'quantity' => $product->pivot->quantity,
+                ];
+                array_push($lineItems, $lineItem);
+            }
+        }
+
+
+        foreach ($products as $product) {
+            Stock::create([
+                'product_id' => $product->id,
+                'quantity' => $product->pivot->quantity * -1,
+                'type' => \Constant::PRODUCT_LIST['reduce']
+            ]);
+        }
+        // dd($lineItems);
+
+        // dd('test');
+
+        // セッションを作成
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+        $session = \Stripe\Checkout\Session::create([
+
+            'payment_method_types' => ['card'],
+            'line_items' => [$lineItems],
+            'mode' => 'payment',
+            // successメソッドに走る
+            'success_url' => route('user.cart.success'),
+            'cancel_url' => route('user.cart.cancel'),
+        ]);
+
+        $publicKey = env('STRIPE_PUBLIC_KEY');
+
+        return view(
+            'user.checkout',
+            compact('session', 'publicKey')
+        );
+    }
+
+    // 決算が成功した場合
+    public function success()
+    {
+        Cart::where('user_id', Auth::id())->delete();
+        return redirect()->route('user.items.index');
+    }
+
+    // 決算が失敗した場合の処理
+    public function cancel()
+    {
+        $user = User::findOrFail(Auth::id());
+
+        foreach ($user->products as $product) {
+            Stock::create([
+                'product_id' => $product->id,
+                'quantity' => $product->pivot->quantity,
+                'type' => \Constant::PRODUCT_LIST['add']
+            ]);
+        }
+
+        return redirect()->route('user.cart.cancel');
     }
 }

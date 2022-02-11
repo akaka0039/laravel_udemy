@@ -40,7 +40,7 @@ class ItemController extends Controller
         // Eloquent（エロクアント）（laravelのORM（オブジェクト関係マッピング））
         // Eloquentモデルオブジェクト
 
-        $products = Product::availableItems()->sortOrder($request->sort)->paginate($request->pagination);
+        $products = Product::availableItems()->sortOrder($request->sort)->paginate($request->pagination ?? '20');
 
         //dd($stocks, $products);
         //$products = Product::all();

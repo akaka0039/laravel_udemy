@@ -11,6 +11,7 @@ use App\Models\Stock;
 use Illuminate\Support\Facades\Auth;
 use App\Services\CartService;
 use App\Jobs\SendThanksMail;
+use App\Jobs\SendOrderedMail;
 
 
 
@@ -68,15 +69,6 @@ class CartController extends Controller
     //支払い
     public function checkout()
     {
-        ///
-        $items = Cart::where('user_id', Auth::id())->get();
-        $products = CartService::getItemsCart($items);
-        $user = User::findOrFail(Auth::id());
-
-        SendThanksMail::dispatch($products, $user);
-        dd('yu-zamail test');
-
-        ///
         $user = User::findOrFail(Auth::id());
         $products = $user->products;
 
@@ -138,6 +130,18 @@ class CartController extends Controller
     // 決算が成功した場合
     public function success()
     {
+
+        $items = Cart::where('user_id', Auth::id())->get();
+        $products = CartService::getItemsCart($items);
+        $user = User::findOrFail(Auth::id());
+
+        SendThanksMail::dispatch($products, $user);
+        foreach ($products as $product) {
+            SendOrderedMail::dispatch($product, $user);
+        }
+
+        // dd('yu-zamail test');
+
         Cart::where('user_id', Auth::id())->delete();
         return redirect()->route('user.items.index');
     }

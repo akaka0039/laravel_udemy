@@ -11,7 +11,6 @@ git clone -b ブランチ名 https://github.com/akaka0039/laravel_udemy.git
 もしくはzipファイルでダウンロードしてください
 
 ## インストール方法
-
 - cd laravel_umarche
 - composer install
 - npm install
@@ -39,8 +38,6 @@ php artisan key:generate
 
 php artisan serve
 で簡易サーバーを立ち上げ、表示確認してください
-
-
 
 ## インストール後の実施方法
 

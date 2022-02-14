@@ -28,6 +28,10 @@ Route::get('/', function () {
     return view('user.welcome');
 });
 
+// 20220214_コメント
+// ミドルウェアとは
+// アプリケーションに入るHTTPリクエストを検査およびフィルタリングするための便利なメカニズムを提供
+
 Route::middleware(['auth:users'])->group(function () {
     // index
     Route::get('/', [

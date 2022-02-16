@@ -55,3 +55,21 @@ storageフォルダにリンク後、
 storage/app/public/productsフォルダ内に
 保存すると表示されます。
 （productsフォルダがない場合は作成してください）
+
+## section7の補足
+
+決済のテストとしてstripeを利用しています
+必要な場合は.envにstripeの情報を追記してください
+
+
+## section8の補足
+
+メールテストとしてmailtrapを利用しています
+必要な場合は.envにmailtrapの情報を追記してください
+
+メール処理には時間がかかるので
+キューをしています。
+
+必要な場合は php artisan queue:workで
+ワーカーを立ち上げて動作確認をするようにしてください
+

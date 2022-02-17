@@ -28,6 +28,10 @@ Route::get('/', function () {
     return view('user.welcome');
 });
 
+// 20220214_コメント
+// ミドルウェアとは
+// →アプリケーションに入るHTTPリクエストを検査およびフィルタリングするための便利なメカニズムを提供
+
 Route::middleware(['auth:users'])->group(function () {
     // index
     Route::get('/', [
@@ -40,7 +44,8 @@ Route::middleware(['auth:users'])->group(function () {
     )->name('items.show');
 });
 
-// 
+// グループ内の各ルートに特定のURIをプレフィックスとして付けることができる
+// →グループ内の全てのルートURLの前に「cart」を付与することができる
 
 Route::prefix('cart')->middleware(['auth:users'])->group(function () {
     // add

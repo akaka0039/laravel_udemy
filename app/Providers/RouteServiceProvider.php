@@ -3,6 +3,8 @@
 
 //20220104_ルーティングを変更するため
 
+// 2022215_全てのroutesにあるディレクトリは、ここで自動的に読み込まれる
+
 namespace App\Providers;
 
 use Illuminate\Cache\RateLimiting\Limit;

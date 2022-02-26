@@ -6,6 +6,9 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
+
+
+// コマンド_php artisan make:seeder UserSeeder
 class UserSeeder extends Seeder
 {
     /**

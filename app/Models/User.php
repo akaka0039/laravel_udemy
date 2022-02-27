@@ -12,11 +12,22 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    // *****各機能一覧**************************
+    // $guarded でフィールドへの代入を拒否する
+
+    // $dispatchesEvents で各イベントを設定する
+
+    // $visible でデータ取得するフィールドを指定する
+
+    // $perPage でpaginate()のデフォルト件数を変更する
+    // ***************************************
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
+    // $fillable でフィールドへの代入を許可する
     protected $fillable = [
         'name', 'email', 'password',
     ];
@@ -26,6 +37,8 @@ class User extends Authenticatable
      *
      * @var array
      */
+
+    // $hidden でデータ取得しないフィールドを指定する
     protected $hidden = [
         'password', 'remember_token',
     ];
@@ -35,6 +48,7 @@ class User extends Authenticatable
      *
      * @var array
      */
+    // $casts でデータを自動変換する
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];

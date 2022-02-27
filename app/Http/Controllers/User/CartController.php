@@ -130,7 +130,6 @@ class CartController extends Controller
     // 決算が成功した場合
     public function success()
     {
-
         $items = Cart::where('user_id', Auth::id())->get();
         $products = CartService::getItemsCart($items);
         $user = User::findOrFail(Auth::id());
@@ -146,7 +145,7 @@ class CartController extends Controller
         return redirect()->route('user.items.index');
     }
 
-    // 決算が失敗した場合の処理
+    // 決算が失敗した場合
     public function cancel()
     {
         $user = User::findOrFail(Auth::id());

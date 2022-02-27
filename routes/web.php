@@ -30,7 +30,7 @@ Route::get('/', function () {
 
 // 20220214_コメント
 // ミドルウェアとは
-// →アプリケーションに入るHTTPリクエストを検査およびフィルタリングするための便利なメカニズムを提供
+// アプリケーションに入るHTTPリクエストを検査およびフィルタリングするための便利なメカニズムを提供
 
 Route::middleware(['auth:users'])->group(function () {
     // index
@@ -38,6 +38,7 @@ Route::middleware(['auth:users'])->group(function () {
         ItemController::class,
         'index'
     ])->name('items.index');
+    // show
     Route::get(
         'show/{item}',
         [ItemController::class, 'show']
@@ -45,7 +46,7 @@ Route::middleware(['auth:users'])->group(function () {
 });
 
 // グループ内の各ルートに特定のURIをプレフィックスとして付けることができる
-// →グループ内の全てのルートURLの前に「cart」を付与することができる
+// グループ内の全てのルートURLの前に「cart」を付与することができる
 
 Route::prefix('cart')->middleware(['auth:users'])->group(function () {
     // add
@@ -53,27 +54,27 @@ Route::prefix('cart')->middleware(['auth:users'])->group(function () {
         CartController::class,
         'add'
     ])->name('cart.add');
-
+    // index
     Route::get('/', [
         CartController::class,
         'index'
     ])->name('cart.index');
-
+    // delete
     Route::post('delete/{item}', [
         CartController::class,
         'delete'
     ])->name('cart.delete');
-
+    // 
     Route::get('checkout', [
         CartController::class,
         'checkout'
     ])->name('cart.checkout');
-
+    // 支払い成功
     Route::get('success', [
         CartController::class,
         'success'
     ])->name('cart.success');
-
+    // 支払い失敗
     Route::get('cancel', [
         CartController::class,
         'cancel'

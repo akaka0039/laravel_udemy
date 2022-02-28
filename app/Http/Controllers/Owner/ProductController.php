@@ -169,7 +169,7 @@ class ProductController extends Controller
         );
     }
 
-
+    // ProductRequestでバリエーションを作っているため
     public function update(ProductRequest $request, $id)
     {
         $request->validate([

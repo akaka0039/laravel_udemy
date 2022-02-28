@@ -22,14 +22,14 @@ class Shop extends Model
     ];
 
     // belongsTo
-    // 従テーブルの複数レコードに対して、主テーブルの1つのレコードが紐付けられる。
+    // 従テーブルの複数レコードに対して、主テーブルの1つのレコードが紐付けられる
     public function owner()
     {
         return $this->belongsTo(Owner::class);
     }
 
     // hasMany
-    // 主テーブルのあるレコードに対して、従テーブルの複数のレコードが紐付けられる。
+    // 主テーブルのあるレコードに対して、従テーブルの複数のレコードが紐付けられる
     public function product()
     {
         return $this->hasMany(Product::class);

@@ -70,3 +70,5 @@ storage/app/public/productsフォルダ内に
 必要な場合は php artisan queue:workで
 ワーカーを立ち上げて動作確認をするようにしてください
 
+
+※理解を深めるため、日々コメントを追記

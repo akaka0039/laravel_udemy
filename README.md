@@ -72,3 +72,4 @@ storage/app/public/productsフォルダ内に
 
 
 ※理解を深めるため、日々コメントを追記
+
